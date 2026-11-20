@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="color-scheme" content="light dark" />
+		<title>Start</title>
+		<link rel="stylesheet" href="style.css" />
+		<script type="module" src="script.js"></script>
+	</head>
+	<body id="start">
+		<main>
+			<form
+				class="search"
+				action="https://www.google.com/search"
+				method="get"
+				role="search"
+			>
+				<svg
+					aria-hidden="true"
+					fill="none"
+					height="16"
+					stroke="currentColor"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="1.5"
+					viewBox="0 0 24 24"
+					width="16"
+				>
+					<path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+					<path d="M21 21l-6 -6" />
+				</svg>
+				<input
+					aria-label="Search"
+					autocomplete="off"
+					autofocus
+					enterkeyhint="search"
+					name="q"
+					placeholder="Search"
+					type="text"
+				/>
+				<button aria-label="Clear" type="reset">
+					<svg
+						aria-hidden="true"
+						fill="none"
+						height="16"
+						stroke="currentColor"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="1.5"
+						viewBox="0 0 24 24"
+						width="16"
+					>
+						<path d="M18 6l-12 12" />
+						<path d="M6 6l12 12" />
+					</svg>
+				</button>
+			</form>
+			<nav class="groups" aria-label="Favorites"></nav>
+		</main>
+		<template id="group">
+			<section class="group">
+				<h2></h2>
+				<ul></ul>
+			</section>
+		</template>
+		<template id="link">
+			<li>
+				<a>
+					<span class="name"></span>
+					<span class="description"></span>
+				</a>
+			</li>
+		</template>
+	</body>
+</html>
