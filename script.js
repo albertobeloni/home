@@ -26,7 +26,9 @@ const link = ({ description, name, url }) => {
 };
 
 addEventListener("pageshow", (event) => {
-	if (event.persisted) {
+	const [entry] = performance.getEntriesByType("navigation");
+
+	if (event.persisted || entry.type === "back_forward") {
 		location.reload();
 	}
 });
