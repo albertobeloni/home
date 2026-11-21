@@ -25,6 +25,12 @@ const link = ({ description, name, url }) => {
 	return fragment;
 };
 
+addEventListener("pageshow", (event) => {
+	if (event.persisted) {
+		location.reload();
+	}
+});
+
 const response = await fetch("favorites.json");
 
 if (response.ok) {
