@@ -87,7 +87,7 @@
 		background: var(--background);
 		color: var(--text);
 		display: grid;
-		font: 9.75pt / 1.25em interface;
+		font: 9.75pt / 1.25em monospace;
 	}
 
 	main {
