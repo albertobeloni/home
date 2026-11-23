@@ -60,6 +60,9 @@
 
 @layer page {
 	:root {
+		--gap: 48px;
+		--search: 48px;
+
 		--accent: light-dark(#3a6ea5, #8ab4e8);
 		--background: light-dark(#f4f4f4, #101010);
 		--line: light-dark(#dcdcdc, #262626);
@@ -113,12 +116,12 @@
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		min-inline-size: 0;
-		row-gap: 48px;
+		row-gap: var(--gap);
 	}
 
 	.search {
 		align-items: center;
-		block-size: 48px;
+		block-size: var(--search);
 		border-block-end: 1px solid var(--line);
 		display: flex;
 		gap: 8px;
@@ -249,6 +252,7 @@
 		display: grid;
 		gap: 24px;
 		justify-self: start;
+		margin-block-start: calc(var(--search) + var(--gap));
 		min-inline-size: min(100%, 320px);
 		opacity: 0;
 		transition: opacity 240ms;
@@ -264,7 +268,7 @@
 
 	.artwork img {
 		block-size: auto;
-		max-block-size: calc(100dvh - 160px - 24px - 96px);
+		max-block-size: calc(100dvh - 160px - var(--search) - var(--gap) - 24px - 96px);
 		max-inline-size: 100%;
 		object-fit: cover;
 		object-view-box: inset(2%);
