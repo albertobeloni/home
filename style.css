@@ -62,18 +62,12 @@
 	:root {
 		--accent: light-dark(#3a6ea5, #8ab4e8);
 		--background: light-dark(#f4f4f4, #101010);
-		--focus: light-dark(#dcdcdc, #262626);
-		--hover-muted: light-dark(#4f6f94, #8aa6c6);
-		--hover-text: light-dark(#2f5f96, #a9c8ee);
-		--input-selection: light-dark(#c9d9ec, #2b3a4c);
-		--input-selection-text: light-dark(#2f5f96, #a9c8ee);
+		--line: light-dark(#dcdcdc, #262626);
 		--muted: light-dark(#6e6e6e, #8a8a8a);
-		--secondary: light-dark(#2e7d5b, #7fc8a5);
-		--secondary-muted: light-dark(#4f8f72, #6aa88a);
 		--selection: light-dark(#c9d9ec, #2b3a4c);
 		--selection-text: light-dark(#2f5f96, #a9c8ee);
 		--silent: light-dark(#a3a3a3, #5c5c5c);
-		--surface: light-dark(#fafafa, #171717);
+		--strong: light-dark(#0a0a0a, #f0f0f0);
 		--text: light-dark(#262626, #d4d4d4);
 	}
 
@@ -82,178 +76,238 @@
 		color: var(--selection-text);
 	}
 
-	body {
-		align-content: center;
+	html {
 		background: var(--background);
-		color: var(--text);
-		display: grid;
-		font: 9.75pt / 1.25em monospace;
 	}
 
-	main {
-		display: grid;
-		gap: 64px;
-		inline-size: min(100% - 32px, 640px);
-		margin-inline: auto;
-		padding-block: 40px;
-	}
-
-	:is(.group, .search) {
-		--frame: var(--surface);
-		--light: oklab(from var(--frame) calc(l + 0.06) a b);
-		--shade: oklab(from var(--frame) calc(l - 0.06) a b);
-
-		background: var(--frame);
-		border: 1px solid var(--shade);
-		box-shadow: inset 1px 1px var(--light);
-	}
-
-	:is(.group, .search):focus-within,
-	.group:hover {
-		--frame: var(--focus);
-	}
-
-	.search {
-		padding: 6px;
+	html.grid {
 		position: relative;
 	}
 
-	.search > svg {
-		color: var(--muted);
-		inset-block: 0;
-		inset-inline-start: 19px;
-		margin-block: auto;
+	html.grid::after {
+		background:
+			repeating-linear-gradient(transparent 0 23px, color-mix(in srgb, var(--accent) 40%, transparent) 23px 24px),
+			repeating-linear-gradient(transparent 0 7px, color-mix(in srgb, var(--accent) 15%, transparent) 7px 8px);
+		content: "";
+		inset: 0;
 		pointer-events: none;
 		position: absolute;
+	}
+
+	body {
+		color: var(--text);
+		column-gap: 80px;
+		display: grid;
+		font: 10.5pt / 24px ui-serif;
+		font-kerning: normal;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		hanging-punctuation: first;
+		margin-inline: auto;
+		max-inline-size: calc(1280px + 160px);
+		padding: 80px;
+		text-rendering: optimizeLegibility;
+	}
+
+	main {
+		align-self: start;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		min-inline-size: 0;
+		row-gap: 48px;
+	}
+
+	.search {
+		align-items: center;
+		block-size: 48px;
+		border-block-end: 1px solid var(--line);
+		display: flex;
+		gap: 8px;
+		transition: border-color 120ms;
+	}
+
+	.search:focus-within {
+		border-color: var(--accent);
+	}
+
+	.search > svg {
+		color: var(--silent);
+		flex: none;
 	}
 
 	.search:focus-within > svg {
 		color: var(--accent);
 	}
 
-	.search button {
-		background: none;
-		block-size: 40px;
-		border: 0;
-		color: var(--muted);
-		cursor: pointer;
-		display: grid;
-		inline-size: 40px;
-		inset-block-start: 7px;
-		inset-inline-end: 7px;
-		padding: 0;
-		place-items: center;
-		position: absolute;
-	}
-
-	.search button:hover {
-		color: var(--accent);
-	}
-
-	.search button:focus-visible {
-		color: var(--accent);
-		outline: 1px solid var(--accent);
-		outline-offset: -1px;
-	}
-
-	.search:has(input:placeholder-shown) button {
-		display: none;
-	}
-
 	.search input {
-		background: var(--background);
-		block-size: 40px;
-		border: 1px solid var(--shade);
-		border-radius: 0;
-		box-shadow: 1px 1px var(--light);
-		inline-size: 100%;
+		background: none;
+		block-size: 100%;
+		border: 0;
+		flex: 1;
+		min-inline-size: 0;
 		outline: none;
-		padding-inline: 40px;
-	}
-
-	.search input::selection {
-		background: var(--input-selection);
-		color: var(--input-selection-text);
+		padding: 0;
 	}
 
 	.search input::placeholder {
 		color: var(--silent);
 	}
 
-	.groups {
-		align-items: start;
+	.search button {
+		background: none;
+		border: 0;
+		color: var(--silent);
+		cursor: pointer;
 		display: grid;
-		gap: 8px;
-		grid-template-columns: repeat(auto-fit, minmax(224px, 1fr));
+		flex: none;
+		padding: 0;
+		place-items: center;
 	}
 
-	.group {
+	.search button:is(:focus-visible, :hover) {
+		color: var(--accent);
+	}
+
+	.search button:focus-visible {
+		outline: 1px solid var(--accent);
+	}
+
+	.search:has(input:placeholder-shown) button {
+		display: none;
+	}
+
+	.groups {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
-		grid-template-rows: auto 1fr;
-		padding: 0 6px 6px;
+		row-gap: 24px;
 	}
 
 	.group h2 {
-		align-items: center;
-		block-size: 32px;
 		color: var(--muted);
-		display: flex;
-		font-size: inherit;
-		font-weight: inherit;
-		padding-inline: 8px;
+		font: inherit;
+		font-variant-caps: all-small-caps;
+		letter-spacing: 0.08em;
 	}
 
 	.group ul {
-		align-content: start;
-		background: var(--background);
-		border: 1px solid var(--shade);
-		box-shadow: 1px 1px var(--light);
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
 		list-style: none;
-		padding: 8px;
+		padding: 0;
 	}
 
 	.group a {
+		align-items: baseline;
 		color: inherit;
 		display: flex;
-		gap: 0px;
-		padding: 8px;
 		text-decoration: none;
-		white-space: nowrap;
-	}
-
-	.group a span {
-		transition: color 120ms;
 	}
 
 	.group a:focus-visible {
 		outline: 1px solid var(--accent);
-		outline-offset: -1px;
-	}
-
-	.description {
-		color: var(--secondary-muted);
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	.description::before {
-		content: "" / "";
-		margin-inline-end: 8px;
 	}
 
 	.name {
-		color: var(--secondary);
 		flex: none;
+		transition: color 120ms;
 	}
 
-	.group a:hover .description {
-		color: var(--hover-muted);
+	.leader {
+		color: var(--silent);
+		direction: rtl;
+		flex: 1;
+		margin-inline: 0.5em;
+		min-inline-size: 2em;
+		overflow: hidden;
+		white-space: nowrap;
 	}
 
-	.group a:hover .name {
-		color: var(--hover-text);
+	.leader::before {
+		content: ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .";
+	}
+
+	.description {
+		color: var(--muted);
+		min-inline-size: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		transition: color 120ms;
+		white-space: nowrap;
+	}
+
+	.group a:has(.description:empty) .leader {
+		display: none;
+	}
+
+	.group a:is(:focus-visible, :hover) .name {
+		color: var(--accent);
+	}
+
+	.group a:is(:focus-visible, :hover) .description {
+		color: var(--text);
+	}
+
+	.artwork {
+		align-self: start;
+		display: grid;
+		gap: 24px;
+		justify-self: start;
+		min-inline-size: min(100%, 320px);
+		opacity: 0;
+		transition: opacity 240ms;
+	}
+
+	.artwork[hidden] {
+		display: none;
+	}
+
+	.artwork.loaded {
+		opacity: 1;
+	}
+
+	.artwork img {
+		block-size: auto;
+		max-block-size: calc(100dvh - 160px - 24px - 96px);
+		max-inline-size: 100%;
+		object-fit: cover;
+		object-view-box: inset(2%);
+	}
+
+	.artwork figcaption {
+		color: var(--muted);
+		display: grid;
+		inline-size: 0;
+		min-inline-size: 100%;
+	}
+
+	.artwork figcaption :empty {
+		display: none;
+	}
+
+	.artwork .title {
+		color: var(--strong);
+		font-style: italic;
+		text-decoration: none;
+		transition: color 120ms;
+	}
+
+	.artwork .title:is(:focus-visible, :hover) {
+		color: var(--accent);
+	}
+
+	.artwork .title:focus-visible {
+		outline: 1px solid var(--accent);
+	}
+
+	.artwork .artist {
+		color: var(--text);
+	}
+
+	@media (width < 960px) or (height < 480px) {
+		body {
+			grid-template-columns: minmax(0, 600px);
+			justify-content: center;
+		}
+
+		.artwork {
+			display: none;
+		}
 	}
 }

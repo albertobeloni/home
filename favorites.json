@@ -5,12 +5,12 @@
 			{
 				"name": "GitHub",
 				"url": "https://github.com",
-				"description": "Repositories and issues"
+				"description": "Code versioning and repository"
 			},
 			{
 				"name": "Arch Wiki",
 				"url": "https://wiki.archlinux.org",
-				"description": "Linux documentation"
+				"description": "System documentation"
 			}
 		]
 	},
@@ -21,11 +21,6 @@
 				"name": "Hacker News",
 				"url": "https://news.ycombinator.com",
 				"description": "Computer science news"
-			},
-			{
-				"name": "LWN.net",
-				"url": "https://lwn.net",
-				"description": "Linux and free software news"
 			}
 		]
 	},
@@ -54,8 +49,13 @@
 			},
 			{
 				"name": "Unsplash",
-				"url": "https://unsplash.com/",
+				"url": "https://unsplash.com",
 				"description": "Beautiful images and photos"
+			},
+			{
+				"name": "nixers.net",
+				"url": "https://nixers.net",
+				"description": "A community for computer enthusiasts"
 			}
 		]
 	}
