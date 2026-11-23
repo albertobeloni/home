@@ -23,9 +23,9 @@ Each link is listed with its description, joined by a dotted leader.
 
 ## Artwork
 
-Each load shows a random public-domain painting from [The Metropolitan Museum of Art Collection API](https://metmuseum.github.io/).
+Each load shows a random public-domain painting from [The Cleveland Museum of Art Open Access API](https://openaccess-api.clevelandart.org/), captioned with its title and artist.
 
-The artwork sits under a “Met Archives” title, aligned with the search field, and the image starts on the search field’s underline. While it loads, leader dots step in after the title. Each caption field is limited to two lines, ending with an ellipsis when longer.
+The artwork sits under a “Cleveland Archives” title, aligned with the search field, and the image starts on the search field’s underline. While it loads, leader dots step in after the title. Each caption field is limited to two lines, ending with an ellipsis when longer.
 
 The next artwork is fetched in the background and cached, so it shows instantly on the following load.
 

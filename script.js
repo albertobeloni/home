@@ -1,10 +1,10 @@
 const ATTEMPTS = 3;
-const COLLECTION = "https://collectionapi.metmuseum.org/public/collection";
+const COLLECTION = "https://openaccess-api.clevelandart.org/api/artworks/";
 const LINE = 24;
 const WINDOW = 10000;
 
 const keys = {
-	next: "home:next",
+	next: "home:artwork",
 	total: "home:total",
 };
 
@@ -48,17 +48,16 @@ const favorites = async () => {
 	container.append(...(groups ?? []).map(group));
 };
 
-const search = async (offset) => {
+const search = async (skip) => {
 	const params = new URLSearchParams({
-		hasImages: true,
-		isPublicDomain: true,
+		cc0: 1,
+		has_image: 1,
 		limit: 1,
-		medium: "Paintings",
-		offset,
-		q: "*",
+		skip,
+		type: "Painting",
 	});
 
-	return json(`${COLLECTION}/v1.1/search?${params}`);
+	return json(`${COLLECTION}?${params}`);
 };
 
 const pick = () => {
@@ -75,20 +74,17 @@ const random = async () => {
 			return null;
 		}
 
-		localStorage.setItem(keys.total, result.total);
+		localStorage.setItem(keys.total, result.info.total);
 
-		const [id] = result.objectIDs ?? [];
+		const [work] = result.data ?? [];
 
-		if (id === undefined) {
-			continue;
-		}
-
-		const work = await json(`${COLLECTION}/v1/objects/${id}`);
-
-		if (work?.classification === "Paintings" && work.isPublicDomain && work.primaryImageSmall) {
-			const { artistDisplayBio, artistDisplayName, medium, objectDate, objectURL, primaryImageSmall, title } = work;
-
-			return { artistDisplayBio, artistDisplayName, medium, objectDate, objectURL, primaryImageSmall, title };
+		if (work?.images?.web?.url) {
+			return {
+				artist: work.creators?.[0]?.description ?? "",
+				image: work.images.web.url,
+				title: work.title,
+				url: work.url,
+			};
 		}
 	}
 
@@ -112,16 +108,14 @@ const hide = () => {
 	artwork.hidden = true;
 };
 
-const show = ({ artistDisplayBio, artistDisplayName, medium, objectDate, objectURL, primaryImageSmall, title }) => {
+const show = ({ artist, image: source, title, url }) => {
 	const image = artwork.querySelector("img");
 	const label = artwork.querySelector("figcaption");
 	const name = label.querySelector(".title");
 
-	name.href = objectURL;
+	name.href = url;
 	name.textContent = title;
-	label.querySelector(".artist").textContent = artistDisplayName;
-	label.querySelector(".biography").textContent = artistDisplayBio;
-	label.querySelector(".details").textContent = [objectDate, medium].filter(Boolean).join(" — ");
+	label.querySelector(".artist").textContent = artist;
 	image.alt = title;
 
 	image.addEventListener("error", hide);
@@ -133,7 +127,7 @@ const show = ({ artistDisplayBio, artistDisplayName, medium, objectDate, objectU
 		requestAnimationFrame(() => artwork.classList.add("loaded"));
 	});
 
-	image.src = primaryImageSmall;
+	image.src = source;
 };
 
 const stored = () => {
@@ -153,7 +147,7 @@ const prepare = async () => {
 
 	if (work) {
 		localStorage.setItem(keys.next, JSON.stringify(work));
-		new Image().src = work.primaryImageSmall;
+		new Image().src = work.image;
 	}
 };
 
