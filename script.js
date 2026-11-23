@@ -1,6 +1,6 @@
 const ATTEMPTS = 3;
-const BASELINE = 8;
 const COLLECTION = "https://collectionapi.metmuseum.org/public/collection";
+const LINE = 24;
 const WINDOW = 10000;
 
 const keys = {
@@ -101,10 +101,15 @@ const snap = () => {
 	image.style.removeProperty("block-size");
 	image.style.removeProperty("inline-size");
 
+	const gap = parseFloat(getComputedStyle(image.parentElement).rowGap);
 	const { height, width } = image.getBoundingClientRect();
 
-	image.style.blockSize = `${Math.floor(height / BASELINE) * BASELINE}px`;
+	image.style.blockSize = `${Math.floor((height + gap) / LINE) * LINE - gap}px`;
 	image.style.inlineSize = `${width}px`;
+};
+
+const hide = () => {
+	artwork.hidden = true;
 };
 
 const show = ({ artistDisplayBio, artistDisplayName, medium, objectDate, objectURL, primaryImageSmall, title }) => {
@@ -119,8 +124,10 @@ const show = ({ artistDisplayBio, artistDisplayName, medium, objectDate, objectU
 	label.querySelector(".details").textContent = [objectDate, medium].filter(Boolean).join(" — ");
 	image.alt = title;
 
+	image.addEventListener("error", hide);
+
 	image.addEventListener("load", () => {
-		artwork.hidden = false;
+		artwork.ariaBusy = "false";
 		snap();
 		new ResizeObserver(snap).observe(document.body);
 		requestAnimationFrame(() => artwork.classList.add("loaded"));
@@ -151,10 +158,14 @@ const prepare = async () => {
 };
 
 const display = async () => {
-	const work = stored() ?? (await random());
+	artwork.hidden = false;
+
+	const work = stored() ?? (await random().catch(() => null));
 
 	if (work) {
 		show(work);
+	} else {
+		hide();
 	}
 
 	await prepare();

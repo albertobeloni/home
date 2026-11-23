@@ -25,6 +25,7 @@ Each link is listed with its description, joined by a dotted leader.
 
 Each load shows a random public-domain painting from [The Metropolitan Museum of Art Collection API](https://metmuseum.github.io/).
 
+The artwork sits under a “Met Archives” title, aligned with the search field, and the image starts on the search field’s underline. While it loads, leader dots step in after the title.
 
 The next artwork is fetched in the background and cached, so it shows instantly on the following load.
 

@@ -184,7 +184,7 @@
 		row-gap: 24px;
 	}
 
-	.group h2 {
+	h2 {
 		color: var(--muted);
 		font: inherit;
 		font-variant-caps: all-small-caps;
@@ -250,25 +250,37 @@
 	.artwork {
 		align-self: start;
 		display: grid;
-		gap: 24px;
 		justify-self: start;
-		margin-block-start: calc(var(--search) + var(--gap));
 		min-inline-size: min(100%, 320px);
-		opacity: 0;
-		transition: opacity 240ms;
 	}
 
 	.artwork[hidden] {
 		display: none;
 	}
 
-	.artwork.loaded {
+	.artwork h2 {
+		line-height: var(--search);
+	}
+
+	.artwork:not(.loaded) h2::after {
+		animation: loading 1200ms step-end 400ms infinite;
+		content: "";
+	}
+
+	.artwork figure {
+		display: grid;
+		gap: calc((var(--search) - 24px) / 2);
+		opacity: 0;
+		transition: opacity 240ms;
+	}
+
+	.artwork.loaded figure {
 		opacity: 1;
 	}
 
 	.artwork img {
 		block-size: auto;
-		max-block-size: calc(100dvh - 160px - var(--search) - var(--gap) - 24px - 96px);
+		max-block-size: calc(100dvh - 160px - var(--search) - (var(--search) - 24px) / 2 - 96px);
 		max-inline-size: 100%;
 		object-fit: cover;
 		object-view-box: inset(2%);
@@ -302,6 +314,31 @@
 
 	.artwork .artist {
 		color: var(--text);
+	}
+
+	@keyframes loading {
+		0% {
+			content: "";
+		}
+
+		25% {
+			content: " .";
+		}
+
+		50% {
+			content: " . .";
+		}
+
+		75% {
+			content: " . . .";
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.artwork:not(.loaded) h2::after {
+			animation: none;
+			content: " . . .";
+		}
 	}
 
 	@media (width < 960px) or (height < 480px) {
