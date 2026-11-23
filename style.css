@@ -293,6 +293,14 @@
 		min-inline-size: 100%;
 	}
 
+	.artwork figcaption > * {
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		display: -webkit-box;
+		line-clamp: 2;
+		overflow: hidden;
+	}
+
 	.artwork figcaption :empty {
 		display: none;
 	}
