@@ -33,7 +33,7 @@ Each link is listed with its description, joined by a dotted leader.
 
 ## Baseline Grid
 
-Text sits on a 24px line height and every block snaps to an 8px grid. Add `#grid` to the URL to overlay the grid.
+Text sits on a 24px line height and every block snaps to an 8px grid.
 
 ## Development
 

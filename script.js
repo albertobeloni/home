@@ -63,13 +63,6 @@ const verse = async () => {
 	requestAnimationFrame(() => poem.classList.add("loaded"));
 };
 
-const grid = () => {
-	document.documentElement.classList.toggle("grid", location.hash === "#grid");
-};
-
-addEventListener("hashchange", grid);
-
-grid();
 favorites();
 
 if (matchMedia("(width >= 960px)").matches) {

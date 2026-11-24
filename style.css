@@ -72,20 +72,6 @@
 		background: var(--background);
 	}
 
-	html.grid {
-		position: relative;
-	}
-
-	html.grid::after {
-		background:
-			repeating-linear-gradient(transparent 0 23px, color-mix(in srgb, var(--accent) 40%, transparent) 23px 24px),
-			repeating-linear-gradient(transparent 0 7px, color-mix(in srgb, var(--accent) 15%, transparent) 7px 8px);
-		content: "";
-		inset: 0;
-		pointer-events: none;
-		position: absolute;
-	}
-
 	body {
 		color: var(--text);
 		display: grid;
@@ -169,6 +155,7 @@
 	.search .icon {
 		background: var(--icon-background);
 		color: var(--icon);
+		cursor: text;
 		display: grid;
 		flex: none;
 		inline-size: 40px;
