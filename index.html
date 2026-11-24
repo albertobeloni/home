@@ -7,12 +7,19 @@
 		<meta name="description" content="A personal home page." />
 		<title>Home</title>
 		<link rel="icon" href="data:," />
-		<link rel="preconnect" href="https://openaccess-api.clevelandart.org" crossorigin />
-		<link rel="preconnect" href="https://openaccess-cdn.clevelandart.org" />
 		<link rel="stylesheet" href="style.css" />
 		<script type="module" src="script.js"></script>
 	</head>
 	<body>
+		<div class="block">
+			<figure class="poem" hidden>
+				<blockquote></blockquote>
+				<figcaption>
+					<cite></cite>
+					<span class="author"></span>
+				</figcaption>
+			</figure>
+		</div>
 		<main>
 			<form
 				class="search"
@@ -20,30 +27,7 @@
 				method="get"
 				role="search"
 			>
-				<svg
-					aria-hidden="true"
-					fill="none"
-					height="16"
-					stroke="currentColor"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="1.5"
-					viewBox="0 0 24 24"
-					width="16"
-				>
-					<path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-					<path d="M21 21l-6 -6" />
-				</svg>
-				<input
-					aria-label="Search"
-					autocomplete="off"
-					autofocus
-					enterkeyhint="search"
-					name="q"
-					placeholder="Search"
-					type="text"
-				/>
-				<button aria-label="Clear" type="reset">
+				<div class="icon">
 					<svg
 						aria-hidden="true"
 						fill="none"
@@ -51,27 +35,44 @@
 						stroke="currentColor"
 						stroke-linecap="round"
 						stroke-linejoin="round"
-						stroke-width="1.5"
+						stroke-width="2"
 						viewBox="0 0 24 24"
 						width="16"
 					>
-						<path d="M18 6l-12 12" />
-						<path d="M6 6l12 12" />
+						<path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+						<path d="M21 21l-6 -6" />
 					</svg>
-				</button>
+				</div>
+				<div class="field">
+					<input
+						aria-label="Search"
+						autocomplete="off"
+						autofocus
+						enterkeyhint="search"
+						name="q"
+						placeholder="Search"
+						type="text"
+					/>
+					<button aria-label="Clear" type="reset">
+						<svg
+							aria-hidden="true"
+							fill="none"
+							height="16"
+							stroke="currentColor"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							viewBox="0 0 24 24"
+							width="16"
+						>
+							<path d="M18 6l-12 12" />
+							<path d="M6 6l12 12" />
+						</svg>
+					</button>
+				</div>
 			</form>
 			<nav class="groups" aria-label="Favorites"></nav>
 		</main>
-		<aside class="artwork" aria-busy="true" hidden>
-			<h2>Cleveland Archives</h2>
-			<figure>
-				<img alt="" decoding="async" />
-				<figcaption>
-					<a class="title"></a>
-					<span class="artist"></span>
-				</figcaption>
-			</figure>
-		</aside>
 		<template id="group">
 			<section class="group">
 				<h2></h2>

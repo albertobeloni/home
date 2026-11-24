@@ -16,11 +16,9 @@
 	}
 
 	body {
-		line-height: 1.5;
 		min-block-size: 100dvh;
 	}
 
-	img,
 	svg {
 		display: block;
 		max-inline-size: 100%;
@@ -32,21 +30,9 @@
 		font: inherit;
 	}
 
-	h1,
-	h2,
-	h3,
-	p {
+	h2 {
 		overflow-wrap: break-word;
-	}
-
-	h1,
-	h2,
-	h3 {
 		text-wrap: balance;
-	}
-
-	p {
-		text-wrap: pretty;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -60,17 +46,20 @@
 
 @layer page {
 	:root {
-		--gap: 48px;
-		--search: 48px;
-
 		--accent: light-dark(#3a6ea5, #8ab4e8);
 		--background: light-dark(#f4f4f4, #101010);
-		--line: light-dark(#dcdcdc, #262626);
+		--block: light-dark(#a9771f, #80602f);
+		--block-muted: light-dark(#5c3f10, #d9b98a);
+		--block-text: light-dark(#2b1d06, #f3e3c8);
+		--icon: light-dark(#43504c, #8aa39b);
+		--icon-background: light-dark(#b2c3bd, #2d3734);
+		--input: light-dark(#eaefec, #090e0c);
+		--input-text: light-dark(#676c6a, #777c7a);
 		--muted: light-dark(#6e6e6e, #8a8a8a);
+		--placeholder: light-dark(#8a8f8c, #5d625f);
 		--selection: light-dark(#c9d9ec, #2b3a4c);
 		--selection-text: light-dark(#2f5f96, #a9c8ee);
 		--silent: light-dark(#a3a3a3, #5c5c5c);
-		--strong: light-dark(#0a0a0a, #f0f0f0);
 		--text: light-dark(#262626, #d4d4d4);
 	}
 
@@ -99,52 +88,108 @@
 
 	body {
 		color: var(--text);
-		column-gap: 80px;
 		display: grid;
 		font: 10.5pt / 24px ui-serif;
 		font-kerning: normal;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		hanging-punctuation: first;
-		margin-inline: auto;
-		max-inline-size: calc(1280px + 160px);
-		padding: 80px;
 		text-rendering: optimizeLegibility;
 	}
 
+	.block {
+		align-items: center;
+		background: var(--block);
+		color: var(--block-text);
+		display: grid;
+		justify-items: center;
+		padding: 80px;
+	}
+
+	.poem {
+		display: grid;
+		font-size: 13.5pt;
+		line-height: 32px;
+		max-inline-size: 40ch;
+		opacity: 0;
+		row-gap: 24px;
+		transition: opacity 240ms;
+	}
+
+	.poem[hidden] {
+		display: none;
+	}
+
+	.poem.loaded {
+		opacity: 1;
+	}
+
+	.poem blockquote > span {
+		display: block;
+		min-block-size: 32px;
+		padding-inline-start: 1em;
+		text-indent: -1em;
+		white-space: pre-wrap;
+	}
+
+	.poem figcaption {
+		color: var(--block-muted);
+		display: grid;
+		font-size: 10.5pt;
+		line-height: 24px;
+	}
+
+	.poem cite {
+		font-style: italic;
+	}
+
+	.poem .author {
+		font-variant-caps: all-small-caps;
+		letter-spacing: 0.08em;
+	}
+
+	.poem .author::before {
+		content: "— ";
+	}
+
 	main {
-		align-self: start;
+		align-self: center;
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
-		min-inline-size: 0;
-		row-gap: var(--gap);
+		inline-size: min(100%, calc(600px + 160px));
+		justify-self: center;
+		padding: 80px;
+		row-gap: 48px;
 	}
 
 	.search {
-		align-items: center;
-		block-size: var(--search);
-		border-block-end: 1px solid var(--line);
+		block-size: 40px;
 		display: flex;
-		gap: 8px;
-		transition: border-color 120ms;
 	}
 
-	.search:focus-within {
-		border-color: var(--accent);
-	}
-
-	.search > svg {
-		color: var(--silent);
+	.search .icon {
+		background: var(--icon-background);
+		color: var(--icon);
+		display: grid;
 		flex: none;
+		inline-size: 40px;
+		place-items: center;
 	}
 
-	.search:focus-within > svg {
-		color: var(--accent);
+	.search .field {
+		align-items: center;
+		background: var(--input);
+		display: flex;
+		flex: 1;
+		gap: 8px;
+		min-inline-size: 0;
+		padding-inline: 12px;
 	}
 
 	.search input {
 		background: none;
 		block-size: 100%;
 		border: 0;
+		color: var(--input-text);
 		flex: 1;
 		min-inline-size: 0;
 		outline: none;
@@ -152,13 +197,13 @@
 	}
 
 	.search input::placeholder {
-		color: var(--silent);
+		color: var(--placeholder);
 	}
 
 	.search button {
 		background: none;
 		border: 0;
-		color: var(--silent);
+		color: var(--placeholder);
 		cursor: pointer;
 		display: grid;
 		flex: none;
@@ -247,115 +292,12 @@
 		color: var(--text);
 	}
 
-	.artwork {
-		align-self: start;
-		display: grid;
-		justify-self: start;
-		min-inline-size: min(100%, 320px);
-	}
-
-	.artwork[hidden] {
-		display: none;
-	}
-
-	.artwork h2 {
-		line-height: var(--search);
-	}
-
-	.artwork:not(.loaded) h2::after {
-		animation: loading 1200ms step-end 400ms infinite;
-		content: "";
-	}
-
-	.artwork figure {
-		display: grid;
-		gap: calc((var(--search) - 24px) / 2);
-		opacity: 0;
-		transition: opacity 240ms;
-	}
-
-	.artwork.loaded figure {
-		opacity: 1;
-	}
-
-	.artwork img {
-		block-size: auto;
-		max-block-size: calc(100dvh - 160px - var(--search) - (var(--search) - 24px) / 2 - 96px);
-		max-inline-size: 100%;
-		object-fit: cover;
-		object-view-box: inset(2%);
-	}
-
-	.artwork figcaption {
-		color: var(--muted);
-		display: grid;
-		inline-size: 0;
-		min-inline-size: 100%;
-	}
-
-	.artwork figcaption > * {
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 2;
-		display: -webkit-box;
-		line-clamp: 2;
-		overflow: hidden;
-	}
-
-	.artwork figcaption :empty {
-		display: none;
-	}
-
-	.artwork .title {
-		color: var(--strong);
-		font-style: italic;
-		text-decoration: none;
-		transition: color 120ms;
-	}
-
-	.artwork .title:is(:focus-visible, :hover) {
-		color: var(--accent);
-	}
-
-	.artwork .title:focus-visible {
-		outline: 1px solid var(--accent);
-	}
-
-	.artwork .artist {
-		color: var(--text);
-	}
-
-	@keyframes loading {
-		0% {
-			content: "";
-		}
-
-		25% {
-			content: " .";
-		}
-
-		50% {
-			content: " . .";
-		}
-
-		75% {
-			content: " . . .";
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.artwork:not(.loaded) h2::after {
-			animation: none;
-			content: " . . .";
-		}
-	}
-
-	@media (width < 960px) or (height < 480px) {
+	@media (width < 960px) {
 		body {
-			grid-template-columns: minmax(0, 600px);
-			justify-content: center;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
-		.artwork {
+		.block {
 			display: none;
 		}
 	}

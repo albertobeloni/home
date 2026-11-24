@@ -2,6 +2,16 @@
 
 A personal home page.
 
+## Layout
+
+The page splits in two halves. The left half is a solid block in the primary color, holding a short poem. The right half holds the search field and the favorites, centered with 80px around them. On narrow screens, only the right half shows.
+
+The search field follows the desktop bar: a 40px tall field with the search icon in its own square cell.
+
+## Poetry
+
+Each load shows a random short poem from [PoetryDB](https://poetrydb.org), with its title and author. The poem is picked among the ones with 2, 4, 5, 6, 7, 8, or 14 lines (sonnets), keeping its own indentation and stanza breaks. Double hyphens become em dashes. If the request fails, the block stays plain.
+
 ## Favorites
 
 Favorites live in `favorites.json`: a list of groups, each with a `title` and a list of `links`.
@@ -20,14 +30,6 @@ Favorites live in `favorites.json`: a list of groups, each with a `title` and a 
 ```
 
 Each link is listed with its description, joined by a dotted leader.
-
-## Artwork
-
-Each load shows a random public-domain painting from [The Cleveland Museum of Art Open Access API](https://openaccess-api.clevelandart.org/), captioned with its title and artist.
-
-The artwork sits under a “Cleveland Archives” title, aligned with the search field, and the image starts on the search field’s underline. While it loads, leader dots step in after the title. Each caption field is limited to two lines, ending with an ellipsis when longer.
-
-The next artwork is fetched in the background and cached, so it shows instantly on the following load.
 
 ## Baseline Grid
 
