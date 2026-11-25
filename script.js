@@ -60,8 +60,9 @@ const verse = async () => {
 	poem.querySelector("cite").textContent = piece.title;
 	poem.querySelector(".author").textContent = piece.author;
 	poem.hidden = false;
-	requestAnimationFrame(() => poem.classList.add("loaded"));
 };
+
+document.querySelector(".search").addEventListener("reset", ({ target }) => target.q.focus());
 
 favorites();
 

@@ -51,8 +51,8 @@
 		--block: light-dark(#a9771f, #80602f);
 		--block-muted: light-dark(#5c3f10, #d9b98a);
 		--block-text: light-dark(#2b1d06, #f3e3c8);
-		--icon: light-dark(#43504c, #8aa39b);
-		--icon-background: light-dark(#b2c3bd, #2d3734);
+		--icon: light-dark(#b2c3bd, #2d3734);
+		--icon-text: light-dark(#43504c, #8aa39b);
 		--input: light-dark(#eaefec, #090e0c);
 		--input-text: light-dark(#676c6a, #777c7a);
 		--muted: light-dark(#6e6e6e, #8a8a8a);
@@ -96,17 +96,16 @@
 		font-size: 13.5pt;
 		line-height: 32px;
 		max-inline-size: 40ch;
-		opacity: 0;
 		row-gap: 24px;
 		transition: opacity 240ms;
+
+		@starting-style {
+			opacity: 0;
+		}
 	}
 
 	.poem[hidden] {
 		display: none;
-	}
-
-	.poem.loaded {
-		opacity: 1;
 	}
 
 	.poem blockquote > span {
@@ -153,8 +152,8 @@
 	}
 
 	.search .icon {
-		background: var(--icon-background);
-		color: var(--icon);
+		background: var(--icon);
+		color: var(--icon-text);
 		cursor: text;
 		display: grid;
 		flex: none;
