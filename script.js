@@ -62,6 +62,10 @@ const verse = async () => {
 	poem.hidden = false;
 };
 
+if (performance.getEntriesByType("navigation")[0]?.type === "back_forward") {
+	location.reload();
+}
+
 document.querySelector(".search").addEventListener("reset", ({ target }) => target.q.focus());
 
 favorites();
